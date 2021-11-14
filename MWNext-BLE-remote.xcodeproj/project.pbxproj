@@ -11,6 +11,9 @@
 		B33D4046273E0E530017908E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4045273E0E530017908E /* ContentView.swift */; };
 		B33D4048273E0E540017908E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33D4047273E0E540017908E /* Assets.xcassets */; };
 		B33D404B273E0E540017908E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33D404A273E0E540017908E /* Preview Assets.xcassets */; };
+		B33D4053273E3CEE0017908E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4052273E3CEE0017908E /* BLE.swift */; };
+		B33D4055273E456B0017908E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4054273E456B0017908E /* Utils.swift */; };
+		B36273D1273F19EB00F5D251 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36273D0273F19EB00F5D251 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,10 @@
 		B33D4045273E0E530017908E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B33D4047273E0E540017908E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B33D404A273E0E540017908E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B33D4051273E1C170017908E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B33D4052273E3CEE0017908E /* BLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
+		B33D4054273E456B0017908E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B36273D0273F19EB00F5D251 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +58,12 @@
 		B33D4042273E0E530017908E /* MWNext-BLE-remote */ = {
 			isa = PBXGroup;
 			children = (
+				B33D4051273E1C170017908E /* Info.plist */,
 				B33D4043273E0E530017908E /* MWNext_BLE_remoteApp.swift */,
 				B33D4045273E0E530017908E /* ContentView.swift */,
+				B33D4052273E3CEE0017908E /* BLE.swift */,
+				B36273D0273F19EB00F5D251 /* DataModel.swift */,
+				B33D4054273E456B0017908E /* Utils.swift */,
 				B33D4047273E0E540017908E /* Assets.xcassets */,
 				B33D4049273E0E540017908E /* Preview Content */,
 			);
@@ -137,8 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36273D1273F19EB00F5D251 /* DataModel.swift in Sources */,
 				B33D4046273E0E530017908E /* ContentView.swift in Sources */,
+				B33D4053273E3CEE0017908E /* BLE.swift in Sources */,
 				B33D4044273E0E530017908E /* MWNext_BLE_remoteApp.swift in Sources */,
+				B33D4055273E456B0017908E /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +268,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -272,9 +287,13 @@
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MWNext-BLE-remote/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "MWNext will connect to a Bluetooth RFID reader to program tags.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -286,7 +305,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -301,9 +320,13 @@
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MWNext-BLE-remote/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "MWNext will connect to a Bluetooth RFID reader to program tags.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -315,7 +338,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
