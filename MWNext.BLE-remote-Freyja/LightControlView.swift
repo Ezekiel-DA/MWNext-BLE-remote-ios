@@ -53,14 +53,9 @@ struct LightControlView : View {
                                 .disabledAndGreyedOut(device.rainbowMode! || device.whiteMode || (device.type! == 1 && device.mode == 6))
                             
                             HStack {
-                                Toggle("Rainbow", isOn: Binding($device.rainbowMode)!).disabled(device.whiteMode).onChange(of: device.rainbowMode) { _rainbowMode in
-                                    device.whiteMode = false
-                                }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
+                                Toggle("Rainbow", isOn: Binding($device.rainbowMode)!).disabledAndGreyedOut(device.whiteMode || (device.type! == 1 && device.mode == 6))
                                 Divider()
-                                Toggle("White", isOn: $device.whiteMode).disabled(device.rainbowMode!).onChange(of: device.whiteMode) { _isOn in
-                                    device.rainbowMode = false
-                                    device.saturation = _isOn ? 0 : 255
-                                }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
+                                Toggle("White", isOn: $device.whiteMode).disabledAndGreyedOut(device.rainbowMode! || (device.type! == 1 && device.mode == 6))
                             }
                         }
                     }
