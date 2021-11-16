@@ -19,16 +19,7 @@ class LightDevice : ObservableObject, DebugPrintable {
     @Published var mode: UInt8?
     @Published var hue: UInt8?
     @Published var saturation: UInt8?
-    @Published var cycleColor: Bool?
-    
-    private var subscribers: Set<AnyCancellable> = []
-    
-    internal var _modeCharacteristic: CBCharacteristic?
-    internal var _hueCharacteristic: CBCharacteristic?
-    internal var _saturationCharacteristic: CBCharacteristic?
-    internal var _cycleColorCharacteristic: CBCharacteristic?
-    
-    var _id = 0;
+    @Published var rainbowMode: Bool?
     
     var isOn: Bool {
         get {
@@ -48,13 +39,31 @@ class LightDevice : ObservableObject, DebugPrintable {
         }
     }
     
+    var whiteMode: Bool {
+        get {
+            guard saturation != nil else { return false }
+            
+            return saturation == 0
+        }
+        
+        set(isWhite) {
+            guard saturation != nil else { return }
+            
+            saturation = isWhite ? 0 : 255
+        }
+    }
+        
+    internal var _modeCharacteristic: CBCharacteristic?
+    internal var _hueCharacteristic: CBCharacteristic?
+    internal var _saturationCharacteristic: CBCharacteristic?
+    internal var _rainbowModeCharacteristic: CBCharacteristic?
+    
+    private var subscribers: Set<AnyCancellable> = []
+    
     init(uuid: CBUUID) {
         self.uuid = uuid
         
         mode = 0
-        
-        self._id = _internalID
-        _internalID += 1
         
         $mode.sink { val in
             guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
@@ -71,9 +80,9 @@ class LightDevice : ObservableObject, DebugPrintable {
             mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._saturationCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
 
-        $cycleColor.sink { val in
+        $rainbowMode.sink { val in
             guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
-            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._cycleColorCharacteristic!, type: .withResponse)
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._rainbowModeCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
     }
 }

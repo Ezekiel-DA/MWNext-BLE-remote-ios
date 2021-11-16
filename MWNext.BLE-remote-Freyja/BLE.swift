@@ -129,7 +129,7 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             case MWNEXT_BLE_HUE_CHARACTERISTIC_UUID:
                 device._hueCharacteristic = characteristic
             case MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID:
-                device._cycleColorCharacteristic = characteristic
+                device._rainbowModeCharacteristic = characteristic
             case MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID:
                 device._saturationCharacteristic = characteristic
             default:
@@ -165,7 +165,7 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             case MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID:
                 device!.saturation = val
             case MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID:
-                device!.cycleColor = val != 0
+                device!.rainbowMode = val != 0
             default:
                 assert(false, "Unexpected characteristic")
             }

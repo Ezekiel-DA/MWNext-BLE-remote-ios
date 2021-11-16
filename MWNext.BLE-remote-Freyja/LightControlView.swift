@@ -14,7 +14,7 @@ let FastLEDHueGradient = Gradient(colors: [
 struct LightControlView : View {
     @ObservedObject var device: LightDevice
     
-    @State private var whiteMode = false
+    // @State private var whiteMode = false
     
     var body: some View {
         Section() {
@@ -22,49 +22,47 @@ struct LightControlView : View {
                 Toggle(isOn: $device.isOn) { Text(device.name!)
                         .fontWeight(.heavy)
                 }
-                if (device.isOn) {
-                    if (device.type != 3) {
-                        if (device.hue != nil && device.saturation != nil && device.cycleColor != nil) {
-                            VStack {
-                                Slider(value: Binding($device.hue)!.double, in: 0...255)
-                                    .background(LinearGradient(gradient: FastLEDHueGradient, startPoint: .leading, endPoint: .trailing)).clipShape(Capsule())
-                                    .disabledAndGreyedOut(device.cycleColor! || whiteMode || (device.type! == 1 && device.mode == 6))
-                                
-                                HStack {
-                                    Toggle("Rainbow", isOn: Binding($device.cycleColor)!).disabled(whiteMode).onChange(of: device.cycleColor) { _cycleColor in
-                                        whiteMode = false
-                                    }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
-                                    Divider()
-                                    Toggle("White", isOn: $whiteMode).disabled(device.cycleColor!).onChange(of: whiteMode) { _isOn in
-                                        device.cycleColor = false
-                                        device.saturation = _isOn ? 0 : 255
-                                    }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
-                                }
+                if (device.isOn && device.type != 3) { // device type 3: on off only, no need to display mode and color settings
+                    Picker(selection: Binding($device.mode)!, label: Text("Mode")) {
+                        if (device.type == 1) { // NB: .tag's type MUST match the binding's type, or everything will fail silently, which is fun
+                            //Text("off").tag(UInt8(0))
+                            Text("steady").tag(UInt8(1))
+                            Text("pulse").tag(UInt8(2))
+                            Text("candle").tag(UInt8(3))
+                            Text("strobe").tag(UInt8(4))
+                            Text("flicker").tag(UInt8(5))
+                            Text("water").tag(UInt8(6))
+                        }
+                        else if (device.type == 2) {
+                            Text("steady").tag(UInt8(8))
+                            //Text("off").tag(UInt8(0))
+                            //Text("cycle").tag(UInt8(1))
+                            Text("wave").tag(UInt8(2))
+                            //Text("sequential").tag(UInt8(3))
+                            Text("glow").tag(UInt8(4))
+                            //Text("chase").tag(UInt8(5))
+                            Text("fade").tag(UInt8(6))
+                            Text("twinkle").tag(UInt8(7))
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                    
+                    if (device.hue != nil && device.saturation != nil && device.rainbowMode != nil) {
+                        VStack {
+                            Slider(value: Binding($device.hue)!.double, in: 0...255)
+                                .background(LinearGradient(gradient: FastLEDHueGradient, startPoint: .leading, endPoint: .trailing)).clipShape(Capsule())
+                                .disabledAndGreyedOut(device.rainbowMode! || device.whiteMode || (device.type! == 1 && device.mode == 6))
+                            
+                            HStack {
+                                Toggle("Rainbow", isOn: Binding($device.rainbowMode)!).disabled(device.whiteMode).onChange(of: device.rainbowMode) { _rainbowMode in
+                                    device.whiteMode = false
+                                }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
+                                Divider()
+                                Toggle("White", isOn: $device.whiteMode).disabled(device.rainbowMode!).onChange(of: device.whiteMode) { _isOn in
+                                    device.rainbowMode = false
+                                    device.saturation = _isOn ? 0 : 255
+                                }.disabledAndGreyedOut(device.type! == 1 && device.mode == 6)
                             }
                         }
-                        
-                        Picker(selection: Binding($device.mode)!, label: Text("Mode")) {
-                            if (device.type == 1) { // NB: .tag's type MUST match the binding's type, or everything will fail silently, which is fun
-                                //Text("off").tag(UInt8(0))
-                                Text("steady").tag(UInt8(1))
-                                Text("pulse").tag(UInt8(2))
-                                Text("candle").tag(UInt8(3))
-                                Text("strobe").tag(UInt8(4))
-                                Text("flicker").tag(UInt8(5))
-                                Text("water").tag(UInt8(6))
-                            }
-                            else if (device.type == 2) {
-                                Text("steady").tag(UInt8(8))
-                                //Text("off").tag(UInt8(0))
-                                //Text("cycle").tag(UInt8(1))
-                                Text("wave").tag(UInt8(2))
-                                //Text("sequential").tag(UInt8(3))
-                                Text("glow").tag(UInt8(4))
-                                //Text("chase").tag(UInt8(5))
-                                Text("fade").tag(UInt8(6))
-                                Text("twinkle").tag(UInt8(7))
-                            }
-                        }.pickerStyle(SegmentedPickerStyle())
                     }
                 }
             }
@@ -81,7 +79,7 @@ struct LightControlView_Previews: PreviewProvider {
         testDevice.type = 1
         testDevice.hue = 255
         testDevice.saturation = 0
-        testDevice.cycleColor = false
+        testDevice.rainbowMode = false
         
         return LightControlView(device: testDevice)
     }
