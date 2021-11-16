@@ -52,22 +52,21 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
-                LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_CLOUDS_SERVICE_UUID))
-                LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WALLS_SERVICE_UUID))
-                LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_MOAT_SERVICE_UUID))
-                LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
-            }
-            .alert("Bluetooth required.", isPresented: $_mwNextMgr.bluetoothUnavailable, actions: {} , message: { Text("Please enable Bluetooth for \(Bundle.main.displayName) in Settings.") })
-            .alert("Bluetooth required.", isPresented: $_mwNextMgr.bluetoothOff, actions: {} , message: { Text("Please turn Bluetooth On in Settings.") })
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    TopStatusBar(connected: _mwNextMgr.connected)
+            if (!_mwNextMgr.connected) {
+                Text(_mwNextMgr.bluetoothOff ? "Please turn Bluetooth on in Settings." : (_mwNextMgr.bluetoothUnavailable ? "Please allow \(Bundle.main.displayName) access to Bluetooth" : "Please turn on costume or programming device") )
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }
+            } else {
+                Form {
+                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
+                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_CLOUDS_SERVICE_UUID))
+                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WALLS_SERVICE_UUID))
+                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_MOAT_SERVICE_UUID))
+                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
                 }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }
             }
-            
         }
     }
 }

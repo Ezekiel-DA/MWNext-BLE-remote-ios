@@ -66,22 +66,22 @@ class LightDevice : ObservableObject, DebugPrintable {
         mode = 0
         
         $mode.sink { val in
-            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil && self._modeCharacteristic != nil else { return }
             mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._modeCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
 
         $hue.sink { val in
-            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil && self._hueCharacteristic != nil else { return }
             mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._hueCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
 
         $saturation.sink { val in
-            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil && self._saturationCharacteristic != nil else { return }
             mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._saturationCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
 
         $rainbowMode.sink { val in
-            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil && self._rainbowModeCharacteristic != nil else { return }
             mwNextBLEMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._rainbowModeCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
     }
