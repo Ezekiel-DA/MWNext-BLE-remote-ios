@@ -27,7 +27,7 @@
 		B3897A6B2743B3AC00011200 /* LightControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightControlView.swift; sourceTree = "<group>"; };
 		B3897A6C2743B3AC00011200 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B3897A6D2743B3AC00011200 /* BLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
-		B3897A722743B45D00011200 /* MWNext-BLE-remote-Freyja-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MWNext-BLE-remote-Freyja-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B3897A722743B45D00011200 /* MWNext.BLE-remote-Freyja-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MWNext.BLE-remote-Freyja-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 		B3897A5B2743B2C500011200 /* MWNext.BLE-remote-Freyja */ = {
 			isa = PBXGroup;
 			children = (
-				B3897A722743B45D00011200 /* MWNext-BLE-remote-Freyja-Info.plist */,
+				B3897A722743B45D00011200 /* MWNext.BLE-remote-Freyja-Info.plist */,
 				B3897A5C2743B2C500011200 /* MWNext_BLE_remote_FreyjaApp.swift */,
 				B3897A5E2743B2C500011200 /* ContentView.swift */,
 				B3897A6B2743B3AC00011200 /* LightControlView.swift */,
@@ -285,14 +285,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"MWNext.BLE-remote-Freyja/Preview Content\"";
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWNext-BLE-remote-Freyja-Info.plist";
+				INFOPLIST_FILE = "MWNext.BLE-remote-Freyja-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "$(PRODUCT_NAME) uses Bluetooth to communicate with the costume.";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Freyja's Castle needs Bluetooth to communicate with the costume.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,7 +304,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote-Freyja";
+				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext.BLE-remote-Freyja";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -318,14 +318,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"MWNext.BLE-remote-Freyja/Preview Content\"";
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWNext-BLE-remote-Freyja-Info.plist";
+				INFOPLIST_FILE = "MWNext.BLE-remote-Freyja-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "$(PRODUCT_NAME) uses Bluetooth to communicate with the costume.";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Freyja's Castle needs Bluetooth to communicate with the costume.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -337,7 +337,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote-Freyja";
+				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext.BLE-remote-Freyja";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
