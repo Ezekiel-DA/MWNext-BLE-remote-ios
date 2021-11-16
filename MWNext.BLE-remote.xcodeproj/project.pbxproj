@@ -6,30 +6,20 @@
 	objectVersion = 55;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		B33D4044273E0E530017908E /* MWNext_BLE_remoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4043273E0E530017908E /* MWNext_BLE_remoteApp.swift */; };
-		B33D4046273E0E530017908E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4045273E0E530017908E /* ContentView.swift */; };
-		B33D4048273E0E540017908E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33D4047273E0E540017908E /* Assets.xcassets */; };
-		B33D404B273E0E540017908E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33D404A273E0E540017908E /* Preview Assets.xcassets */; };
-		B33D4053273E3CEE0017908E /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4052273E3CEE0017908E /* BLE.swift */; };
-		B33D4055273E456B0017908E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D4054273E456B0017908E /* Utils.swift */; };
-		B36273D1273F19EB00F5D251 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36273D0273F19EB00F5D251 /* DataModel.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		B33D4040273E0E530017908E /* MWNext-BLE-remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWNext-BLE-remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B33D4043273E0E530017908E /* MWNext_BLE_remoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWNext_BLE_remoteApp.swift; sourceTree = "<group>"; };
+		B33D4043273E0E530017908E /* MWNext.BLE_remoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWNext.BLE_remoteApp.swift; sourceTree = "<group>"; };
 		B33D4045273E0E530017908E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B33D4047273E0E540017908E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B33D404A273E0E540017908E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B33D4051273E1C170017908E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B33D4052273E3CEE0017908E /* BLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 		B33D4054273E456B0017908E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B36273D0273F19EB00F5D251 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		B36273EC274369A500F5D251 /* LightControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightControlView.swift; sourceTree = "<group>"; };
+		B38162FB2743AA20004C2142 /* Freyja's Castle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freyja's Castle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B33D403D273E0E530017908E /* Frameworks */ = {
+		B38162F82743AA20004C2142 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,7 +32,7 @@
 		B33D4037273E0E530017908E = {
 			isa = PBXGroup;
 			children = (
-				B33D4042273E0E530017908E /* MWNext-BLE-remote */,
+				B33D4042273E0E530017908E /* MWNext.BLE-remote */,
 				B33D4041273E0E530017908E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,24 +40,24 @@
 		B33D4041273E0E530017908E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B33D4040273E0E530017908E /* MWNext-BLE-remote.app */,
+				B38162FB2743AA20004C2142 /* Freyja's Castle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B33D4042273E0E530017908E /* MWNext-BLE-remote */ = {
+		B33D4042273E0E530017908E /* MWNext.BLE-remote */ = {
 			isa = PBXGroup;
 			children = (
-				B33D4051273E1C170017908E /* Info.plist */,
-				B33D4043273E0E530017908E /* MWNext_BLE_remoteApp.swift */,
+				B33D4043273E0E530017908E /* MWNext.BLE_remoteApp.swift */,
 				B33D4045273E0E530017908E /* ContentView.swift */,
+				B36273EC274369A500F5D251 /* LightControlView.swift */,
 				B33D4052273E3CEE0017908E /* BLE.swift */,
 				B36273D0273F19EB00F5D251 /* DataModel.swift */,
 				B33D4054273E456B0017908E /* Utils.swift */,
 				B33D4047273E0E540017908E /* Assets.xcassets */,
 				B33D4049273E0E540017908E /* Preview Content */,
 			);
-			path = "MWNext-BLE-remote";
+			path = "MWNext.BLE-remote";
 			sourceTree = "<group>";
 		};
 		B33D4049273E0E540017908E /* Preview Content */ = {
@@ -81,21 +71,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B33D403F273E0E530017908E /* MWNext-BLE-remote */ = {
+		B38162FA2743AA20004C2142 /* MWNext.BLE-remote-Freyja */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B33D404E273E0E540017908E /* Build configuration list for PBXNativeTarget "MWNext-BLE-remote" */;
+			buildConfigurationList = B38163082743AA21004C2142 /* Build configuration list for PBXNativeTarget "MWNext.BLE-remote-Freyja" */;
 			buildPhases = (
-				B33D403C273E0E530017908E /* Sources */,
-				B33D403D273E0E530017908E /* Frameworks */,
-				B33D403E273E0E530017908E /* Resources */,
+				B38162F72743AA20004C2142 /* Sources */,
+				B38162F82743AA20004C2142 /* Frameworks */,
+				B38162F92743AA20004C2142 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "MWNext-BLE-remote";
-			productName = "MWNext-BLE-remote";
-			productReference = B33D4040273E0E530017908E /* MWNext-BLE-remote.app */;
+			name = "MWNext.BLE-remote-Freyja";
+			productName = "MWNext.BLE-remote";
+			productReference = B38162FB2743AA20004C2142 /* Freyja's Castle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,12 +98,12 @@
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
-					B33D403F273E0E530017908E = {
+					B38162FA2743AA20004C2142 = {
 						CreatedOnToolsVersion = 13.1;
 					};
 				};
 			};
-			buildConfigurationList = B33D403B273E0E530017908E /* Build configuration list for PBXProject "MWNext-BLE-remote" */;
+			buildConfigurationList = B33D403B273E0E530017908E /* Build configuration list for PBXProject "MWNext.BLE-remote" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -126,33 +116,26 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B33D403F273E0E530017908E /* MWNext-BLE-remote */,
+				B38162FA2743AA20004C2142 /* MWNext.BLE-remote-Freyja */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B33D403E273E0E530017908E /* Resources */ = {
+		B38162F92743AA20004C2142 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33D404B273E0E540017908E /* Preview Assets.xcassets in Resources */,
-				B33D4048273E0E540017908E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B33D403C273E0E530017908E /* Sources */ = {
+		B38162F72743AA20004C2142 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B36273D1273F19EB00F5D251 /* DataModel.swift in Sources */,
-				B33D4046273E0E530017908E /* ContentView.swift in Sources */,
-				B33D4053273E3CEE0017908E /* BLE.swift in Sources */,
-				B33D4044273E0E530017908E /* MWNext_BLE_remoteApp.swift in Sources */,
-				B33D4055273E456B0017908E /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +196,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -268,6 +252,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -276,20 +261,17 @@
 			};
 			name = Release;
 		};
-		B33D404F273E0E540017908E /* Debug */ = {
+		B38163062743AA21004C2142 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MWNext-BLE-remote/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_ASSET_PATHS = "\"MWNext.BLE-remote/Preview Content\"";
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWNext-BLE-remote/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "MWNext will connect to a Bluetooth RFID reader to program tags.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -300,29 +282,26 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote-Freyja";
+				PRODUCT_NAME = "Freyja's Castle";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		B33D4050273E0E540017908E /* Release */ = {
+		B38163072743AA21004C2142 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MWNext-BLE-remote/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_ASSET_PATHS = "\"MWNext.BLE-remote/Preview Content\"";
 				DEVELOPMENT_TEAM = YZN3T7CWXS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWNext-BLE-remote/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Freyja's Castle";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "MWNext will connect to a Bluetooth RFID reader to program tags.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -333,9 +312,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "NickL.MWNext-BLE-remote-Freyja";
+				PRODUCT_NAME = "Freyja's Castle";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -345,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B33D403B273E0E530017908E /* Build configuration list for PBXProject "MWNext-BLE-remote" */ = {
+		B33D403B273E0E530017908E /* Build configuration list for PBXProject "MWNext.BLE-remote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B33D404C273E0E540017908E /* Debug */,
@@ -354,11 +333,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B33D404E273E0E540017908E /* Build configuration list for PBXNativeTarget "MWNext-BLE-remote" */ = {
+		B38163082743AA21004C2142 /* Build configuration list for PBXNativeTarget "MWNext.BLE-remote-Freyja" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B33D404F273E0E540017908E /* Debug */,
-				B33D4050273E0E540017908E /* Release */,
+				B38163062743AA21004C2142 /* Debug */,
+				B38163072743AA21004C2142 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

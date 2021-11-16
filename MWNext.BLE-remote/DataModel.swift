@@ -23,6 +23,11 @@ class LightDevice : ObservableObject, DebugPrintable {
     
     private var subscribers: Set<AnyCancellable> = []
     
+    internal var _modeCharacteristic: CBCharacteristic?
+    internal var _hueCharacteristic: CBCharacteristic?
+    internal var _saturationCharacteristic: CBCharacteristic?
+    internal var _cycleColorCharacteristic: CBCharacteristic?
+    
     var _id = 0;
     
     var isOn: Bool {
@@ -51,20 +56,24 @@ class LightDevice : ObservableObject, DebugPrintable {
         self._id = _internalID
         _internalID += 1
         
-        $mode.sink { mode in
-            print("mode change: \(String(describing: mode))")
+        $mode.sink { val in
+            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
+            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._modeCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
         
-        $hue.sink { hue in
-            print("hue change: \(String(describing: hue))")
+        $hue.sink { val in
+            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
+            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._hueCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
         
-        $saturation.sink { saturation in
-            print("saturation change: \(String(describing: saturation))")
+        $saturation.sink { val in
+            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
+            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._saturationCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
         
-        $cycleColor.sink { cycleColor in
-            print("cycleColor change: \(String(describing: cycleColor))")
+        $cycleColor.sink { val in
+            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
+            mwNextMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._cycleColorCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
     }
 }

@@ -52,6 +52,8 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     @Published var bluetoothOff = false
     @Published var connected = false
     
+    @Published var tagPresent = false
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
@@ -120,6 +122,20 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
+            let device: LightDevice! = devices.getDeviceByUUID(service.uuid)
+            switch characteristic.uuid {
+            case MWNEXT_BLE_MODE_CHARACTERISTIC_UUID:
+                device._modeCharacteristic = characteristic
+            case MWNEXT_BLE_HUE_CHARACTERISTIC_UUID:
+                device._hueCharacteristic = characteristic
+            case MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID:
+                device._cycleColorCharacteristic = characteristic
+            case MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID:
+                device._saturationCharacteristic = characteristic
+            default:
+                break
+            }
+            peripheral.setNotifyValue(true, for: characteristic)
             peripheral.readValue(for: characteristic)
         }
     }
@@ -158,3 +174,5 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         // print("Device is now: \(device!)")
     }
 }
+
+var mwNextMgr = MWNextBLEManager()

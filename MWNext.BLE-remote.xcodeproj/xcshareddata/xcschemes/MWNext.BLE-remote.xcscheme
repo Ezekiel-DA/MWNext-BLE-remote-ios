@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B33D403F273E0E530017908E"
-               BuildableName = "MWNext-BLE-remote.app"
-               BlueprintName = "MWNext-BLE-remote"
-               ReferencedContainer = "container:MWNext-BLE-remote.xcodeproj">
+               BlueprintIdentifier = "B38162FA2743AA20004C2142"
+               BuildableName = "Freyja&apos;s Castle.app"
+               BlueprintName = "MWNext.BLE-remote-Freyja"
+               ReferencedContainer = "container:MWNext.BLE-remote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B33D403F273E0E530017908E"
-            BuildableName = "MWNext-BLE-remote.app"
-            BlueprintName = "MWNext-BLE-remote"
-            ReferencedContainer = "container:MWNext-BLE-remote.xcodeproj">
+            BlueprintIdentifier = "B38162FA2743AA20004C2142"
+            BuildableName = "Freyja&apos;s Castle.app"
+            BlueprintName = "MWNext.BLE-remote-Freyja"
+            ReferencedContainer = "container:MWNext.BLE-remote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B33D403F273E0E530017908E"
-            BuildableName = "MWNext-BLE-remote.app"
-            BlueprintName = "MWNext-BLE-remote"
-            ReferencedContainer = "container:MWNext-BLE-remote.xcodeproj">
+            BlueprintIdentifier = "B38162FA2743AA20004C2142"
+            BuildableName = "Freyja&apos;s Castle.app"
+            BlueprintName = "MWNext.BLE-remote-Freyja"
+            ReferencedContainer = "container:MWNext.BLE-remote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
