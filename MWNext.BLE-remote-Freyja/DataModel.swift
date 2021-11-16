@@ -57,23 +57,23 @@ class LightDevice : ObservableObject, DebugPrintable {
         _internalID += 1
         
         $mode.sink { val in
-            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
-            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._modeCharacteristic!, type: .withResponse)
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._modeCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
-        
+
         $hue.sink { val in
-            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
-            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._hueCharacteristic!, type: .withResponse)
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._hueCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
-        
+
         $saturation.sink { val in
-            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
-            mwNextMgr.mwPeripheral!.writeValue(Data([val!]), for: self._saturationCharacteristic!, type: .withResponse)
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val!]), for: self._saturationCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
-        
+
         $cycleColor.sink { val in
-            guard val != nil && mwNextMgr.mwPeripheral != nil else { return }
-            mwNextMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._cycleColorCharacteristic!, type: .withResponse)
+            guard val != nil && mwNextBLEMgr.mwPeripheral != nil else { return }
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val! ? 1 : 0]), for: self._cycleColorCharacteristic!, type: .withResponse)
         }.store(in: &subscribers)
     }
 }

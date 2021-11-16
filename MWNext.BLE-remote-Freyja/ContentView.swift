@@ -8,8 +8,6 @@
 import SwiftUI
 import CoreBluetooth
 
-
-
 struct TopStatusBar: View {
     var connected: Bool
     
@@ -18,7 +16,7 @@ struct TopStatusBar: View {
     var body: some View {
         HStack {
             if (connected) {
-                Label("Connected", sys	temImage: "wifi")
+                Label("Connected", systemImage: "wifi")
                     .labelStyle(.titleAndIcon)
                     .foregroundColor(.green)
                     .font(.footnote)
@@ -44,11 +42,11 @@ struct TopStatusBar: View {
 }
 
 struct ContentView: View {
-    @ObservedObject var mwNextMgr = MWNextBLEManager()
+    @ObservedObject var _mwNextMgr: MWNextBLEManager = mwNextBLEMgr
     var centralManager: CBCentralManager!
     
     init() {
-        centralManager = CBCentralManager(delegate: mwNextMgr, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        centralManager = CBCentralManager(delegate: _mwNextMgr, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         UITableView.appearance().tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
     }
     
@@ -61,12 +59,12 @@ struct ContentView: View {
                 LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_MOAT_SERVICE_UUID))
                 LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
             }
-            .alert("Bluetooth required.", isPresented: $mwNextMgr.bluetoothUnavailable, actions: {} , message: { Text("Please enable Bluetooth for \(Bundle.main.displayName) in Settings.") })
-            .alert("Bluetooth required.", isPresented: $mwNextMgr.bluetoothOff, actions: {} , message: { Text("Please turn Bluetooth On in Settings.") })
+            .alert("Bluetooth required.", isPresented: $_mwNextMgr.bluetoothUnavailable, actions: {} , message: { Text("Please enable Bluetooth for \(Bundle.main.displayName) in Settings.") })
+            .alert("Bluetooth required.", isPresented: $_mwNextMgr.bluetoothOff, actions: {} , message: { Text("Please turn Bluetooth On in Settings.") })
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    TopStatusBar(connected: mwNextMgr.connected)
+                    TopStatusBar(connected: _mwNextMgr.connected)
                 }
             }
             

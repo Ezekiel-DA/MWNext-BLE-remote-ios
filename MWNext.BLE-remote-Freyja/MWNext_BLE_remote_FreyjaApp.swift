@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+var mwNextBLEMgr = MWNextBLEManager()
+
 @main
 struct MWNext_BLE_remote_FreyjaApp: App {
     var body: some Scene {

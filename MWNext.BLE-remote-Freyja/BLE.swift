@@ -174,5 +174,3 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         // print("Device is now: \(device!)")
     }
 }
-
-var mwNextMgr = MWNextBLEManager()
