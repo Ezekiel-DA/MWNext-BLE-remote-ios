@@ -11,6 +11,7 @@ import CoreBluetooth
 struct TopStatusBar: View {
     var connected: Bool
     var tagPresent: Bool
+    var tagWriteRequest: Bool // gross, we should probably just hold a reference to the costume controller itself instead of this + accessing it directly
     
     var width: CGFloat = 100.0
     
@@ -31,14 +32,14 @@ struct TopStatusBar: View {
             Spacer()
             Text("Freyja's Castle").font(.title2)
             Spacer()
-            Button(tagPresent ? "Write tag" : "No tag...") {
+            Button(!tagPresent ? "No tag..." : (tagWriteRequest ? "Writing..." : "Write tag")) {
                 print("Requested tag write")
                 costumeController.tagWriteRequest = true
             }
             .font(.footnote)
             .frame(width: width)
             .buttonStyle(.borderedProminent)
-            .disabled(!tagPresent)
+            .disabled(!tagPresent || tagWriteRequest)
         }
     }
 }
@@ -58,7 +59,7 @@ struct ContentView: View {
             if (!_mwNextMgr.connected) {
                 Text(_mwNextMgr.bluetoothOff ? "Please turn Bluetooth on in Settings." : (_mwNextMgr.bluetoothUnavailable ? "Please allow \(Bundle.main.displayName) access to Bluetooth" : "Please turn on costume or programming device") )
                     .navigationBarTitleDisplayMode(.inline)
-                    .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: costumeController.tagPresent) } }
+                    .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: costumeController.tagPresent, tagWriteRequest: _costumeController.tagWriteRequest) } }
             } else {
                 Form {
                     LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
@@ -68,7 +69,7 @@ struct ContentView: View {
                     LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: _costumeController.tagPresent) } }
+                .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: _costumeController.tagPresent, tagWriteRequest: _costumeController.tagWriteRequest) } }
             }
         }
     }

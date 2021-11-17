@@ -96,6 +96,8 @@ class CostumeController: ObservableObject, DebugPrintable {
     internal var _tagWriteRequestCharacteristic: CBCharacteristic?
     internal var _tagWriteErrorCharacteristic: CBCharacteristic?
     
+    private var subscribers: Set<AnyCancellable> = []
+    
     internal let _devices = [
         LightDevice(uuid: MWNEXT_BLE_WINDOWS_SERVICE_UUID),
         LightDevice(uuid: MWNEXT_BLE_CLOUDS_SERVICE_UUID),
@@ -107,6 +109,13 @@ class CostumeController: ObservableObject, DebugPrintable {
     func getDeviceByUUID(_ uuid: CBUUID) -> LightDevice! {
         let deviceIdx = _devices.firstIndex(where: { return $0.uuid == uuid } )
         return deviceIdx != nil ? _devices[deviceIdx!] : nil
+    }
+    
+    init() {
+        $tagWriteRequest.sink { val in
+            guard mwNextBLEMgr.mwPeripheral != nil && self._tagWriteRequestCharacteristic != nil else { return }
+            mwNextBLEMgr.mwPeripheral!.writeValue(Data([val ? 1 : 0]), for: self._tagWriteRequestCharacteristic!, type: .withResponse)
+        }.store(in: &subscribers)
     }
 }
 
