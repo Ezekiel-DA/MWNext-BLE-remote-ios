@@ -106,12 +106,7 @@ class CostumeController: ObservableObject, DebugPrintable {
     
     func getDeviceByUUID(_ uuid: CBUUID) -> LightDevice! {
         let deviceIdx = _devices.firstIndex(where: { return $0.uuid == uuid } )
-        
-        if deviceIdx == nil {
-            return nil
-        }
-        
-        return _devices[deviceIdx!]
+        return deviceIdx != nil ? _devices[deviceIdx!] : nil
     }
 }
 

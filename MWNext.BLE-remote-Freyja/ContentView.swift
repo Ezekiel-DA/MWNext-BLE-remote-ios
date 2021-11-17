@@ -10,6 +10,7 @@ import CoreBluetooth
 
 struct TopStatusBar: View {
     var connected: Bool
+    var tagPresent: Bool
     
     var width: CGFloat = 100.0
     
@@ -30,19 +31,21 @@ struct TopStatusBar: View {
             Spacer()
             Text("Freyja's Castle").font(.title2)
             Spacer()
-            Button(connected ? "Write tag" : "No tag...") {
-                print("Todo: write to tag!")
+            Button(tagPresent ? "Write tag" : "No tag...") {
+                print("Requested tag write")
+                costumeController.tagWriteRequest = true
             }
             .font(.footnote)
             .frame(width: width)
             .buttonStyle(.borderedProminent)
-            .disabled(!connected)
+            .disabled(!tagPresent)
         }
     }
 }
 
 struct ContentView: View {
     @ObservedObject var _mwNextMgr: MWNextBLEManager = mwNextBLEMgr
+    @ObservedObject var _costumeController: CostumeController = costumeController
     var centralManager: CBCentralManager!
     
     init() {
@@ -55,7 +58,7 @@ struct ContentView: View {
             if (!_mwNextMgr.connected) {
                 Text(_mwNextMgr.bluetoothOff ? "Please turn Bluetooth on in Settings." : (_mwNextMgr.bluetoothUnavailable ? "Please allow \(Bundle.main.displayName) access to Bluetooth" : "Please turn on costume or programming device") )
                     .navigationBarTitleDisplayMode(.inline)
-                    .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }
+                    .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: costumeController.tagPresent) } }
             } else {
                 Form {
                     LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
@@ -65,7 +68,7 @@ struct ContentView: View {
                     LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }
+                .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected, tagPresent: _costumeController.tagPresent) } }
             }
         }
     }
