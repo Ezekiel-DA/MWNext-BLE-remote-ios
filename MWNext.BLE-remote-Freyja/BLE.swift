@@ -132,8 +132,9 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        let device = service.uuid == MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID ? nil : costumeController.getDeviceByUUID(service.uuid)
+        
         for characteristic in service.characteristics! {
-            let device: LightDevice! = costumeController.getDeviceByUUID(service.uuid)
             switch characteristic.uuid {
             // controller characteristics
             case MWNEXT_BLE_TAG_PRESENT_CHARACTERISTIC_UUID:
@@ -145,13 +146,13 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             
             // individual light device characteristics
             case MWNEXT_BLE_MODE_CHARACTERISTIC_UUID:
-                device._modeCharacteristic = characteristic
+                device!._modeCharacteristic = characteristic
             case MWNEXT_BLE_HUE_CHARACTERISTIC_UUID:
-                device._hueCharacteristic = characteristic
+                device!._hueCharacteristic = characteristic
             case MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID:
-                device._rainbowModeCharacteristic = characteristic
+                device!._rainbowModeCharacteristic = characteristic
             case MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID:
-                device._saturationCharacteristic = characteristic
+                device!._saturationCharacteristic = characteristic
             default:
                 break
             }
@@ -165,8 +166,7 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         assert(characteristic.value != nil)
         assert(characteristic.service != nil)
         
-        let device = costumeController.getDeviceByUUID(characteristic.service!.uuid)
-        assert(device != nil)
+        let device = characteristic.service!.uuid == MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID ? nil : costumeController.getDeviceByUUID(characteristic.service!.uuid)
         
         if characteristic.uuid == SIG_BLE_OBJECTNAME_CHARACTERISTIC_UUID { // object name is the only characteristic that needs decoding as a UTF8 string...
             let name = String(decoding: characteristic.value!, as: UTF8.self)
