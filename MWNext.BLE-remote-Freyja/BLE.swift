@@ -9,26 +9,31 @@ import Foundation
 import CoreBluetooth
 
 // Identification service; doesn't do anything, but is advertised so we can find the peripheral
-let MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID     = CBUUID(string: "47191881-ebb3-4a9f-9645-3a5c6dae4900")
+let MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID             = CBUUID(string: "47191881-ebb3-4a9f-9645-3a5c6dae4900")
+
+let MWNEXT_BLE_TAG_PRESENT_CHARACTERISTIC_UUID          = CBUUID(string: "68344255-0632-4635-93f0-178bd0d7e577")
+let MWNEXT_BLE_TAG_WRITE_REQUEST_CHARACTERISTIC_UUID    = CBUUID(string: "64957168-79ba-469b-96e9-ccf53086c4c3")
+let MWNEXT_BLE_TAG_WRITE_ERROR_CHARACTERISTIC_UUID      = CBUUID(string: "acd33ab1-eda9-4790-8ce2-f9fe951b3e25")
 
 // Light control services for various on-board devices
-let MWNEXT_BLE_WINDOWS_SERVICE_UUID             = CBUUID(string: "c3f48cdf-18bb-4947-bef2-f804d59d74da")
-let MWNEXT_BLE_CLOUDS_SERVICE_UUID              = CBUUID(string: "f248fd08-0326-482e-b023-db6e3f6bb250")
-let MWNEXT_BLE_WALLS_SERVICE_UUID               = CBUUID(string: "b3701981-4955-49d5-bd2d-e2ea57e8e64c")
-let MWNEXT_BLE_MOAT_SERVICE_UUID                = CBUUID(string: "5180f077-a430-4a6d-b6ea-cdf1075a0dd9")
-let MWNEXT_BLE_STARS_SERVICE_UUID               = CBUUID(string: "c634d6bf-0f7b-4580-b342-7aa2d42dedab")
+let MWNEXT_BLE_WINDOWS_SERVICE_UUID                     = CBUUID(string: "c3f48cdf-18bb-4947-bef2-f804d59d74da")
+let MWNEXT_BLE_CLOUDS_SERVICE_UUID                      = CBUUID(string: "f248fd08-0326-482e-b023-db6e3f6bb250")
+let MWNEXT_BLE_WALLS_SERVICE_UUID                       = CBUUID(string: "b3701981-4955-49d5-bd2d-e2ea57e8e64c")
+let MWNEXT_BLE_MOAT_SERVICE_UUID                        = CBUUID(string: "5180f077-a430-4a6d-b6ea-cdf1075a0dd9")
+let MWNEXT_BLE_STARS_SERVICE_UUID                       = CBUUID(string: "c634d6bf-0f7b-4580-b342-7aa2d42dedab")
 
 // Characteristics exposed by the light control services
-let MWNEXT_BLE_DEVICE_TYPE_CHARACTERISTIC_UUID  = CBUUID(string: "8106f98f-fb24-4b97-a995-47a1695cea75")
-let MWNEXT_BLE_MODE_CHARACTERISTIC_UUID         = CBUUID(string: "b54fc13b-4374-4a6f-861f-dd198f88f299")
-let MWNEXT_BLE_HUE_CHARACTERISTIC_UUID          = CBUUID(string: "19dfe175-aa12-404b-843d-b625937cffff")
-let MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID  = CBUUID(string: "dfe34849-2d42-4222-b6b1-617a4f4d0869")
-let MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID   = CBUUID(string: "946d22e6-2b2f-49e7-b941-150b023f2261")
+let MWNEXT_BLE_DEVICE_TYPE_CHARACTERISTIC_UUID          = CBUUID(string: "8106f98f-fb24-4b97-a995-47a1695cea75")
+let MWNEXT_BLE_MODE_CHARACTERISTIC_UUID                 = CBUUID(string: "b54fc13b-4374-4a6f-861f-dd198f88f299")
+let MWNEXT_BLE_HUE_CHARACTERISTIC_UUID                  = CBUUID(string: "19dfe175-aa12-404b-843d-b625937cffff")
+let MWNEXT_BLE_CYCLE_COLOR_CHARACTERISTIC_UUID          = CBUUID(string: "dfe34849-2d42-4222-b6b1-617a4f4d0869")
+let MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID           = CBUUID(string: "946d22e6-2b2f-49e7-b941-150b023f2261")
 
 // As far as I can tell CoreBluetooth doesn't define constants for the official SIG UUIDs?
 let SIG_BLE_OBJECTNAME_CHARACTERISTIC_UUID      = CBUUID(string: "0x2ABE")
 
 let allMWNextLightControlServiceUUIDs = [
+    MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID,
     MWNEXT_BLE_WINDOWS_SERVICE_UUID,
     MWNEXT_BLE_CLOUDS_SERVICE_UUID,
     MWNEXT_BLE_WALLS_SERVICE_UUID,
@@ -45,15 +50,19 @@ let allMWNextLightControlCharacteristicUUIDs = [
     MWNEXT_BLE_SATURATION_CHARACTERISTIC_UUID
 ]
 
+let allMWNextCostumeControlCharacteristicUUIDs = [
+    MWNEXT_BLE_TAG_PRESENT_CHARACTERISTIC_UUID,
+    MWNEXT_BLE_TAG_WRITE_REQUEST_CHARACTERISTIC_UUID,
+    MWNEXT_BLE_TAG_WRITE_ERROR_CHARACTERISTIC_UUID
+]
+
 class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     var mwPeripheral: CBPeripheral?
     
     @Published var bluetoothUnavailable = false
     @Published var bluetoothOff = false
     @Published var connected = false
-    
-    @Published var tagPresent = false
-    
+        
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
@@ -90,8 +99,6 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             return
         }
         
-        //print("Discovered \(peripheral.name!) at \(RSSI.intValue)")
-        
         if ((mwPeripheral == nil)) {
             mwPeripheral = peripheral
             central.connect(peripheral, options: nil)
@@ -116,14 +123,27 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         assert(peripheral.services!.count == allMWNextLightControlServiceUUIDs.count)
         
         for service in peripheral.services! {
-            peripheral.discoverCharacteristics(allMWNextLightControlCharacteristicUUIDs, for: service)
+            if (service.uuid == MWNEXT_BLE_COSTUME_CONTROL_SERVICE_UUID) { // treat the "main" control service differently; it has a separate set of characteristics from the services controlling light devices
+                peripheral.discoverCharacteristics(allMWNextCostumeControlCharacteristicUUIDs, for: service)
+            } else {
+                peripheral.discoverCharacteristics(allMWNextLightControlCharacteristicUUIDs, for: service)
+            }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
-            let device: LightDevice! = devices.getDeviceByUUID(service.uuid)
+            let device: LightDevice! = costumeController.getDeviceByUUID(service.uuid)
             switch characteristic.uuid {
+            // controller characteristics
+            case MWNEXT_BLE_TAG_PRESENT_CHARACTERISTIC_UUID:
+                costumeController._tagPresentCharacteristic = characteristic
+            case MWNEXT_BLE_TAG_WRITE_REQUEST_CHARACTERISTIC_UUID:
+                costumeController._tagWriteRequestCharacteristic = characteristic
+            case MWNEXT_BLE_TAG_WRITE_ERROR_CHARACTERISTIC_UUID:
+                costumeController._tagWriteErrorCharacteristic = characteristic
+            
+            // individual light device characteristics
             case MWNEXT_BLE_MODE_CHARACTERISTIC_UUID:
                 device._modeCharacteristic = characteristic
             case MWNEXT_BLE_HUE_CHARACTERISTIC_UUID:
@@ -145,7 +165,7 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
         assert(characteristic.value != nil)
         assert(characteristic.service != nil)
         
-        let device = devices.getDeviceByUUID(characteristic.service!.uuid)
+        let device = costumeController.getDeviceByUUID(characteristic.service!.uuid)
         assert(device != nil)
         
         if characteristic.uuid == SIG_BLE_OBJECTNAME_CHARACTERISTIC_UUID { // object name is the only characteristic that needs decoding as a UTF8 string...
@@ -156,6 +176,15 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
             let val = characteristic.value!.first!
             
             switch characteristic.uuid {
+            // controller characteristics
+            case MWNEXT_BLE_TAG_PRESENT_CHARACTERISTIC_UUID:
+                costumeController.tagPresent = val != 0
+            case MWNEXT_BLE_TAG_WRITE_REQUEST_CHARACTERISTIC_UUID:
+                costumeController.tagWriteRequest = val != 0
+            case MWNEXT_BLE_TAG_WRITE_ERROR_CHARACTERISTIC_UUID:
+                costumeController.tagWriteError = val
+            
+            // individual light device characteristics
             case MWNEXT_BLE_DEVICE_TYPE_CHARACTERISTIC_UUID:
                 device!.type = val
             case MWNEXT_BLE_MODE_CHARACTERISTIC_UUID:
@@ -170,7 +199,5 @@ class MWNextBLEManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegat
                 assert(false, "Unexpected characteristic")
             }
         }
-        
-        // print("Device is now: \(device!)")
     }
 }

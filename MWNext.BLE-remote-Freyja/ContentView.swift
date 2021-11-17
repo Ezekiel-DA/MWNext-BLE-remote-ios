@@ -58,11 +58,11 @@ struct ContentView: View {
                     .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }
             } else {
                 Form {
-                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
-                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_CLOUDS_SERVICE_UUID))
-                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_WALLS_SERVICE_UUID))
-                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_MOAT_SERVICE_UUID))
-                    LightControlView(device: devices.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
+                    LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_WINDOWS_SERVICE_UUID))
+                    LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_CLOUDS_SERVICE_UUID))
+                    LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_WALLS_SERVICE_UUID))
+                    LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_MOAT_SERVICE_UUID))
+                    LightControlView(device: costumeController.getDeviceByUUID(MWNEXT_BLE_STARS_SERVICE_UUID))
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .principal) { TopStatusBar(connected: _mwNextMgr.connected) } }

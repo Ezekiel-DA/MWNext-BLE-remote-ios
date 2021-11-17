@@ -9,8 +9,6 @@ import Foundation
 import CoreBluetooth
 import Combine
 
-var _internalID = 0
-
 class LightDevice : ObservableObject, DebugPrintable {
     let uuid: CBUUID
     
@@ -87,8 +85,18 @@ class LightDevice : ObservableObject, DebugPrintable {
     }
 }
 
-struct DeviceList {
-    let _devices = [
+class CostumeController: ObservableObject, DebugPrintable {
+    // let serialNumber: String // one day, we'll probably need some sort of per costume identifier?
+    
+    @Published var tagPresent = false
+    @Published var tagWriteRequest = false
+    @Published var tagWriteError: UInt8 = 0
+    
+    internal var _tagPresentCharacteristic: CBCharacteristic?
+    internal var _tagWriteRequestCharacteristic: CBCharacteristic?
+    internal var _tagWriteErrorCharacteristic: CBCharacteristic?
+    
+    internal let _devices = [
         LightDevice(uuid: MWNEXT_BLE_WINDOWS_SERVICE_UUID),
         LightDevice(uuid: MWNEXT_BLE_CLOUDS_SERVICE_UUID),
         LightDevice(uuid: MWNEXT_BLE_WALLS_SERVICE_UUID),
@@ -107,4 +115,4 @@ struct DeviceList {
     }
 }
 
-let devices = DeviceList()
+let costumeController = CostumeController()
